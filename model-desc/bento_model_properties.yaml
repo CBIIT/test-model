@@ -266,7 +266,8 @@ PropDefinitions:
     Private: false
 #property of project, study
   acquisition_type:
-    Desc: The modes of acquisition used in study: data dependent acquisition (DDA), data independent acquisition (DIA). Relevant for proteomic studies.
+    Desc: |
+      The modes of acquisition used in study: data dependent acquisition (DDA), data independent acquisition (DIA). Relevant for proteomic studies.
     Src: None
     Type: string
     Req: false
