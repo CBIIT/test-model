@@ -15,12 +15,12 @@ branches:
 before_install:
   - docker pull maj1/icdc:model-tool-perl
   - sudo apt-get install sed
-  #
 install:
-  - pip install -r bento-mdf/validators/mdf-validate/reqs.txt
-script:
+  - pip install bento-mdf/validators/mdf-validate
+before_script:
   - pushd model-desc
-  - pytest
+  - test-mdf.py bento_model_file.yaml bento_model_properties.yaml
+script:
   - cp -aR ../bento-mdf/drivers/Perl/make-model/lib lib
   - cp -aR ../bento-mdf/drivers/Perl/make-model/bin bin
   # run model-tool with pre-built perl - fast
@@ -32,13 +32,13 @@ script:
   - cat update-info.txt update-model.txt > x.txt
   - cp -f x.txt update-model.txt
   - cp bento_model_file.yaml bento_model_properties.yaml ../docs/model-desc
-  - cp update-model.txt ../docs/model-desc/test_model.txt
-  - sed -e '1,6d' update-model.svg > ../docs/model-desc/test_model.svg
+  - cp update-model.txt ../docs/model-desc/test-model.txt
+  - sed -e '1,6d' update-model.svg > ../docs/model-desc/test-model.svg
   - rm -f update-model.svg update-info.txt x.txt update-model.txt
   - pushd ../docs
   - cat ./README.md.content > ./README.md
   - echo "<div id='graph' style='display:off;'>" >> ./README.md
-  - cat ./model-desc/test_model.svg >> ./README.md
+  - cat ./model-desc/test-model.svg >> ./README.md
   - echo "</div>" >> ./README.md
   - popd
   - rm -rf lib bin
